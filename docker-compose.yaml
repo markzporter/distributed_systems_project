@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  web:
+    container_name: web
+    build: ./api
+    ports:
+      - "5000:5000"
+    links:
+      - redis
+    depends_on:
+      - redis
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - ./api:/app
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq
+    
+
+  worker:
+    build:
+      context: ./api
+    hostname: worker
+    entrypoint: celery
+    command: -A celery_app.celery worker --loglevel=info
+    volumes:
+      - ./api:/app
+    depends_on:
+      - rabbitmq
+
+      # https://hackmd.io/@samueltseng/Flask-Celery-DockerCompose
+
+
+
+#      https://github.com/tanchinhiong/decoupled-celery-example
+
+
+# https://medium.com/@tanchinhiong/separating-celery-application-and-worker-in-docker-containers-f70fedb1ba6d
