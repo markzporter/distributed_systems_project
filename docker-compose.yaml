@@ -1,39 +1,48 @@
 version: "3"
 
 services:
-  web:
-    container_name: web
-    build: ./api
+  main:
+    container_name: main
+    build: ./app
     ports:
       - "5000:5000"
     links:
-      - redis
+      - rabbitmq
     depends_on:
-      - redis
+      - rabbitmq
     environment:
       - FLASK_ENV=development
     volumes:
-      - ./api:/app
+      - ./app:/app
 
   rabbitmq:
     container_name: rabbitmq
-    image: rabbitmq
+    image: bitnami/rabbitmq:3.8.27
     
 
   worker:
     build:
-      context: ./api
+      context: ./worker
     hostname: worker
     entrypoint: celery
-    command: -A celery_app.celery worker --loglevel=info
+    command: -A tasks worker --loglevel=info
     volumes:
-      - ./api:/app
+      - ./worker:/app
     depends_on:
       - rabbitmq
 
       # https://hackmd.io/@samueltseng/Flask-Celery-DockerCompose
 
 
+  flower:
+    image: mher/flower:0.9.7
+    environment:
+      - CELERY_BROKER_URL=amqp://user:bitnami@rabbitmq
+      - FLOWER_PORT=8888
+    ports:
+      - 8889:8888
+    depends_on:
+      - rabbitmq
 
 #      https://github.com/tanchinhiong/decoupled-celery-example
 
