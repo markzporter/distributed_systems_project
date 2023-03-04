@@ -1,6 +1,7 @@
 import time
 import random
-
+from quadratic_sieve import QS
+import math
 from celery import Celery
 
 # Wait for rabbitmq to be started
@@ -16,19 +17,8 @@ app = Celery(
 
 numTasks = 10
 tasks = []
+N = 973225708688524723
+L = (math.e)**math.sqrt((math.log(N)*math.log(math.log(N))))
+B = int(L**(1/math.sqrt(2)))
 
-for i in range(numTasks):
-    time.sleep(0.5)  # delay
-    
-    t = app.send_task('add', (i, 3))  # Send task by name
-    tasks.append(t)
-    print('Sent task:', i, t)
-
-print('Finished sending tasks')
-print(len(tasks))
-
-for task in tasks:
-    result = task.get()
-    print('Received result:', result)
-
-print('Application ended')
+print(QS(N, B, 100000, app))
