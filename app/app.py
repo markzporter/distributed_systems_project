@@ -18,16 +18,13 @@ numTasks = 10
 tasks = []
 
 for i in range(numTasks):
-    time.sleep(0.5)  #  delay
+    time.sleep(0.5)  # delay
     
     t = app.send_task('add', (i, 3))  # Send task by name
+    tasks.append(t)
+    print('Sent task:', i, t)
 
-    print('Sent task:', i)
-    print(t)
-    print(t.status)
-    print(t.state)
-    print('Result', t.get())
-print('Finished tasks')
+print('Finished sending tasks')
 print(len(tasks))
 
 for task in tasks:
