@@ -8,8 +8,11 @@ services:
       - "5000:5000"
     links:
       - rabbitmq
+      - redis
     depends_on:
-      - rabbitmq
+        rabbitmq:
+          condition: service_healthy
+
     environment:
       - FLASK_ENV=development
     volumes:
@@ -18,6 +21,15 @@ services:
   rabbitmq:
     container_name: rabbitmq
     image: bitnami/rabbitmq:3.8.27
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 30s
+      retries: 3
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
     
 
   worker:
@@ -29,7 +41,8 @@ services:
     volumes:
       - ./worker:/app
     depends_on:
-      - rabbitmq
+        rabbitmq:
+          condition: service_healthy
 
       # https://hackmd.io/@samueltseng/Flask-Celery-DockerCompose
 
@@ -42,7 +55,8 @@ services:
     ports:
       - 8889:8888
     depends_on:
-      - rabbitmq
+        rabbitmq:
+          condition: service_healthy
 
 #      https://github.com/tanchinhiong/decoupled-celery-example
 
