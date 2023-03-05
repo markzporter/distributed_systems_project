@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Number Factorization</h2>
+
+<form action="" id="factorForm">
+    <h1>Factor Number</h1>
+    <input type="text" id="factorNumber" class="form-control" placeholder="Enter your Username...">
+    <button type="submit">Submit</button>
+  </form>
+  <h3 id="factors">Factors will appear here</h3>
+</body>
+</html>
+
+<script type="text/javascript">
+    let loginForm = document.getElementById("factorForm");
+    function updateFactors(factor1, factor2) {
+        let factors = document.getElementById("factors");
+        console.log(factor1, factor2);
+        factors.innerHTML = `The factors for ${factorNumber.value} are ${factor1} ${factor2}`
+    }
+    loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let factorNumber = document.getElementById("factorNumber").value;
+        fetch(`http://0.0.0.0:5000/api/factorize/${factorNumber}`)
+            .then((response) => response.json())
+            .then((data) => updateFactors(data.data[0], data.data[1]))
+
+});
+</script>

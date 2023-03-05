@@ -1,3 +1,4 @@
 celery==5.2.7
 redis
 sympy
+flask
