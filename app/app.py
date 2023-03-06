@@ -26,7 +26,7 @@ def factorize(N):
     N = int(N)
     L = (math.e)**math.sqrt((math.log(N)*math.log(math.log(N))))
     B = int(L**(1/math.sqrt(2)))
-    factors = QS(N, B, 100000, celery_app)
+    factors = QS(N, B, 10000000, celery_app)
     print('Got factors!')
     print(factors)
     return jsonify({'data': list(factors),  'status': 200}), 200
