@@ -1,11 +1,12 @@
 import time
-from locust import HttpUser, task, between
+from locust import HttpUser, task
 
 
 class FactoringUser(HttpUser):
 
     @task
-    def hello_world(self):
+    def factoring_test(self):
+        print('Starting factoring test')
         print('First we do 60 bit')
         ints = [
             855852082054142051,
@@ -30,3 +31,5 @@ class FactoringUser(HttpUser):
         ]
         for i in ints:
             self.client.get(f'/api/factorize/{i}')
+        print('Done!')
+        

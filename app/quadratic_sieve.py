@@ -1,10 +1,11 @@
 from math import fabs, ceil, sqrt, exp, log
 from itertools import chain
 
+
+# PLEASE NOTE:  Much of the code in this file has been adapted from 
 # https://github.com/NachiketUN/Quadratic-Sieve-Algorithm
 
 # Main function for finding the modular square root
-
 
 def quad_residue(a, n):
     # checks if a is quad residue of n

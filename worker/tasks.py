@@ -4,6 +4,9 @@ app = Celery('tasks', broker='pyamqp://user:bitnami@rabbitmq//',
              backend='redis://redis')
 
 
+# Functions in this code were originally written in this repo:
+# https://github.com/NachiketUN/Quadratic-Sieve-Algorithm
+
 @app.task(name='add')
 def add(x, y):
     return x + y
