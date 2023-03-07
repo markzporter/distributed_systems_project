@@ -1,7 +1,7 @@
 This is a project for the Distributed Systems 2023 course at the University of Oulu.
 
 ## What is it?
-The goal of this project is RSA codebreaking for reasonably sized input. Given a RSA number N, we'd like to find it's factors 
+The goal of this project is RSA codebreaking for reasonably sized input. Given a RSA number N, we'd like to find its factors 
 such that we could break a code that is encoded using it. We do this by creating a system which runs a distributed version of the [Quadratic Sieve](https://en.wikipedia.org/wiki/Quadratic_sieve) method for factoring large primes. 
 
 ## How to run it
