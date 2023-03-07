@@ -1,6 +1,6 @@
 This is a project for the Distributed Systems 2023 course at the University of Oulu.
 
-**What is it?**
+## What is it?
 The goal of this project is RSA codebreaking for reasonably sized input. Given a RSA number N, we'd like to find it's factors 
 such that we could break a code that is encoded using it. We do this by creating a system which runs a distributed version of the [Quadratic Sieve](https://en.wikipedia.org/wiki/Quadratic_sieve) method for factoring large primes. 
 
@@ -38,4 +38,26 @@ In both the factor base discovery and the B-smooth searching, we dole out the pa
 - We used [Redis](https://redis.io/) as our backend for the task result queue. Redis is highly scalable and fast database which really should have no performance bottlenecks at our scale. 
 - We used [RabbitMQ](https://www.rabbitmq.com/) as our MQTT message broker since MQTT is the supported protocol in Celery and Rabbit is a well-known broker for this protocol.
 - We used Flask for our HTTP API since it is a standard and simple way to create HTTP servers in Python. 
-- 
+
+## Performance
+  
+You can do your own benchmarking by running `make benchmark`. This uses [Locust](https://locust.io/) which must be installed. We have a user test built in which runs a few 60-bit, 80-bit and one 120-bit primes. You can add your own tests if you'd like. The results from running these on my Macbook Pro 2020 1.4 GHz Quad-Core Intel Core i5 are stored in some CSV files in this repo. Each file was generated using a different number of worker nodes. You can run the `graph_results.py` script if you want to see these yourself. 
+
+  
+## Citations
+
+- The Quadratic Sieve code is almost all originally written in this repo: https://github.com/NachiketUN/Quadratic-Sieve-Algorithm
+- A lot of inspiration for the overall structure of the project and using Celery with Docker came from this repo: https://github.com/tanchinhiong/decoupled-celery-example
+
+## Further reading
+
+Some other stuff I read that was good inspiration / interesting:
+
+- https://www.ams.org/notices/199612/pomerance.pdf (Thanks Alex Rutar) 
+- https://people.kth.se/~johanmon/dse/primy.pdf
+- https://eprint.iacr.org/2015/1000.pdf
+
+  
+
+  
+
