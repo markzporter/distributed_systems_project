@@ -14,7 +14,7 @@ There is a simple frontend for this application in the `/front/index.html` file.
 
 ## Observability
 
-This project has some observability options. You can see some metrics on the processes at `0.0.0.0:8889` where a [Flower](https://flower.readthedocs.io/en/latest/index.html) app is running. You should also be able to see rainbow logs from your `make up` command for all the containers.  
+This project has some observability options. You can see some metrics on the processes at `0.0.0.0:8889` where a [Flower](https://flower.readthedocs.io/en/latest/index.html) app is running. You should also be able to see docker compose rainbow logs from your `make up` command for all the containers.  
 
 ## Architecture 
 
