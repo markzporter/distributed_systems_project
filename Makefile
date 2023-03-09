@@ -1,5 +1,5 @@
 up:
-	docker-compose up --build --scale worker=5 -d
+	docker-compose up --build --scale worker=3
 
 down:
 	docker-compose down
